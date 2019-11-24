@@ -31,8 +31,10 @@ class Particle extends Drawable {
      * @param boundaries {Boundary[]}: All boundaries in the sketch to check at which the particle emits its rays.
      */
     update(boundaries) {
+        this.position = createVector(mouseX, mouseY);
+
         for (let ray of this.rays) {
-            ray.update(boundaries);
+            ray.update(this.position, boundaries);
         }
     }
 

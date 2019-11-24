@@ -34,9 +34,13 @@ class Ray extends Drawable {
     /**
      * Update the state of this ray.
      *
+     * @param origin {p5.Vector}: The new origin of the ray if it has moved.
      * @param boundaries {Boundary[]}: All boundaries in the sketch to check at which the ray is cast.
      */
-    update(boundaries) {
+    update(origin, boundaries) {
+        // Update the origin.
+        this.origin = origin;
+
         // Find the point at which this ray is cast.
         this.castPoint = null;
         let minimalDistance = Infinity;
