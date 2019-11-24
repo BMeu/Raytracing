@@ -12,7 +12,16 @@ class Boundary extends Drawable {
     constructor(start, end) {
         super();
 
+        /**
+         * The start point of the boundary.
+         * @type {p5.Vector}
+         */
         this.start = start;
+
+        /**
+         * The end point of the boundary.
+         * @type {p5.Vector}
+         */
         this.end = end;
     }
 
