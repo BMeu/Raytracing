@@ -5,12 +5,18 @@
 let walls = [];
 
 /**
+ * @type {Particle}
+ */
+let particle;
+
+/**
  * Prepare the sketch.
  */
 function setup() {
     createCanvas(windowWidth, windowHeight);
 
     createWalls(5);
+    particle = new Particle(createVector(windowWidth / 2, windowHeight / 2));
 }
 
 /**
@@ -27,6 +33,7 @@ function draw() {
  * Update the state of the sketch.
  */
 function onUpdate() {
+    particle.update(walls);
 }
 
 /**
@@ -37,6 +44,8 @@ function onDraw() {
     for (let wall of walls) {
         wall.draw();
     }
+
+    particle.draw();
 }
 
 /**
@@ -48,7 +57,7 @@ function onDraw() {
  */
 function createWalls(amount) {
     // Create the walls within the sketch.
-    for (let i = 0; i < amount; i++) {
+    for (let i = 0; i < amount; i += 1) {
         let start = createVector(random(width), random(height));
         let end = createVector(random(width), random(height));
         walls.push(new Boundary(start, end))
@@ -57,6 +66,6 @@ function createWalls(amount) {
     // Create the outer walls of the sketch.
     walls.push(new Boundary(createVector(0, 0), createVector(width, 0)));
     walls.push(new Boundary(createVector(width, 0), createVector(width, height)));
-    walls.push(new Boundary(createVector(width, height), createVector(width, 0)));
+    walls.push(new Boundary(createVector(width, height), createVector(0, height)));
     walls.push(new Boundary(createVector(0, height), createVector(0, 0)));
 }
