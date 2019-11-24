@@ -14,6 +14,7 @@ let particle;
  */
 function setup() {
     createCanvas(windowWidth, windowHeight);
+    noCursor();
 
     createWalls(5);
     particle = new Particle(createVector(windowWidth / 2, windowHeight / 2));
