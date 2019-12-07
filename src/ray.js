@@ -47,7 +47,8 @@ class Ray extends Drawable {
         for (let boundary of boundaries) {
             const point = this.cast(boundary);
 
-            // If the ray is cast onto the current wall, check if this wall is the closest wall to the origin of the ray.
+            // If the ray is cast onto the current wall, check if this wall is the closest wall to the origin of the
+            // ray.
             if (point != null) {
                 const distance = p5.Vector.dist(this.origin, point);
                 if (distance < minimalDistance) {
@@ -67,14 +68,19 @@ class Ray extends Drawable {
      * @see: https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
      */
     cast(boundary) {
-        const denominator = (boundary.start.x - boundary.end.x) * -this.direction.y - (boundary.start.y - boundary.end.y) * -this.direction.x;
+        const denominator = (boundary.start.x - boundary.end.x) * -this.direction.y -
+                            (boundary.start.y - boundary.end.y) * -this.direction.x;
         if (denominator === 0) {
             // If the denominator is 0, the ray and the boundary are parallel to each other (or are coincident).
             return null;
         }
 
-        const t = ((boundary.start.x - this.origin.x) * -this.direction.y - (boundary.start.y - this.origin.y) * -this.direction.x) / denominator;
-        const u = -((boundary.start.x - boundary.end.x) * (boundary.start.y - this.origin.y) - (boundary.start.y - boundary.end.y) * (boundary.start.x - this.origin.x)) / denominator;
+        const t = ((boundary.start.x - this.origin.x) * -this.direction.y -
+                  (boundary.start.y - this.origin.y) * -this.direction.x) /
+                  denominator;
+        const u = -((boundary.start.x - boundary.end.x) * (boundary.start.y - this.origin.y) -
+                  (boundary.start.y - boundary.end.y) * (boundary.start.x - this.origin.x)) /
+                  denominator;
         if (0 <= t && t <= 1 && u >= 0) {
             // If t is between 0 and 1 and u is greater than or equal to 0, the ray intersects the boundary.
             const intersection = createVector();
