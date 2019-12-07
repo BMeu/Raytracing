@@ -5,6 +5,12 @@
 let walls = [];
 
 /**
+ * The number of walls to create.
+ * @type {number}
+ */
+let numberOfWalls = 5;
+
+/**
  * @type {Particle}
  */
 let particle;
@@ -16,8 +22,16 @@ function setup() {
     let canvas = createCanvas(windowWidth, windowHeight);
     canvas.style('display', 'block');
 
-    createWalls(5);
+    createWalls(numberOfWalls);
     particle = new Particle(createVector(windowWidth / 2, windowHeight / 2));
+}
+
+/**
+ * Rebuild the sketch when resizing the window.
+ */
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    createWalls(numberOfWalls);
 }
 
 /**
@@ -57,6 +71,7 @@ function onDraw() {
  * @param amount {number}: The number of walls to create.
  */
 function createWalls(amount) {
+    walls = [];
     // Create the walls within the sketch.
     for (let i = 0; i < amount; i += 1) {
         let start = createVector(random(width), random(height));
