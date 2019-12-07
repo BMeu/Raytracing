@@ -48,6 +48,10 @@ class Particle extends Drawable {
         for (let boundary of boundaries) {
             this.createRayTowardsTarget(boundary.start);
             this.createRayTowardsTarget(boundary.end);
+
+            for (let intersection of boundary.intersections) {
+                this.createRayTowardsTarget(intersection);
+            }
         }
 
         // Sort the rays by their angle so we can correctly draw the shape that is enlightened by the rays.

@@ -79,6 +79,12 @@ function createWalls(amount) {
         walls.push(new Boundary(start, end))
     }
 
+    // Check if any of the randomly created walls intersect each other.
+    // The outer walls of the sketch cannot be intersected so we do not need to check them.
+    for (let wall of walls) {
+        wall.checkIntersections(walls);
+    }
+
     // Create the outer walls of the sketch.
     walls.push(new Boundary(createVector(0, 0), createVector(width, 0)));
     walls.push(new Boundary(createVector(width, 0), createVector(width, height)));
