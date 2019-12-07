@@ -21,8 +21,6 @@ class Particle extends Drawable {
          * @type {Ray[]}
          */
         this.rays = [];
-
-        this.createRays();
     }
 
     /**
@@ -33,6 +31,8 @@ class Particle extends Drawable {
     update(boundaries) {
         this.position = createVector(mouseX, mouseY);
 
+        this.createRays(boundaries);
+
         for (let ray of this.rays) {
             ray.update(this.position, boundaries);
         }
@@ -40,11 +40,32 @@ class Particle extends Drawable {
 
     /**
      * Create the rays emitted by this particle.
+     *
+     * @param (boundaries {Boundary[]}: All boundaries in the sketch to check at which the particle emits its rays.
      */
-    createRays() {
-        for (let angle = 0; angle < 360; angle += 1) {
-            this.rays.push(new Ray(this.position, radians(angle)));
+    createRays(boundaries) {
+        this.rays = [];
+        for (let boundary of boundaries) {
+            this.createRayTowardsTarget(boundary.start);
+            this.createRayTowardsTarget(boundary.end);
         }
+    }
+
+    /**
+     * Cast a ray towards the target and two additional rays slightly to each side of the target to account for
+     * potential boundaries behind the target.
+     *
+     * @param target {p5.Vector}: The target towards which the newly created ray will be cast.
+     */
+    createRayTowardsTarget(target) {
+        let direction = p5.Vector.sub(target, this.position);
+        let angle = direction.heading();
+
+        // Create one ray to each side of the target to hit boundaries behind the target.
+        let offset = 0.00001;
+        this.rays.push(new Ray(this.position, angle - offset));
+        this.rays.push(new Ray(this.position, angle));
+        this.rays.push(new Ray(this.position, angle + offset));
     }
 
     /**

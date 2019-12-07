@@ -75,8 +75,8 @@ class Ray extends Drawable {
 
         const t = ((boundary.start.x - this.origin.x) * -this.direction.y - (boundary.start.y - this.origin.y) * -this.direction.x) / denominator;
         const u = -((boundary.start.x - boundary.end.x) * (boundary.start.y - this.origin.y) - (boundary.start.y - boundary.end.y) * (boundary.start.x - this.origin.x)) / denominator;
-        if (0 < t && t < 1 && u > 0) {
-            // If t is between 0 and 1 and u is greater than 0, the ray intersects the boundary.
+        if (0 <= t && t <= 1 && u >= 0) {
+            // If t is between 0 and 1 and u is greater than or equal to 0, the ray intersects the boundary.
             const intersection = createVector();
             intersection.x = boundary.start.x + t * (boundary.end.x - boundary.start.x);
             intersection.y = boundary.start.y + t * (boundary.end.y - boundary.start.y);
