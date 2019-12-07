@@ -89,11 +89,5 @@ class Boundary extends Drawable {
     onDraw() {
         stroke(255, 255, 255);
         line(this.start.x, this.start.y, this.end.x, this.end.y);
-
-        for (let intersection of this.intersections) {
-            strokeWeight(10);
-            stroke(255, 0, 0);
-            point(intersection.x, intersection.y)
-        }
     }
 }
