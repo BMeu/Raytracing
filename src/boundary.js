@@ -88,6 +88,7 @@ class Boundary extends Drawable {
      */
     onDraw() {
         stroke(255, 255, 255);
+        strokeWeight(5);
         line(this.start.x, this.start.y, this.end.x, this.end.y);
     }
 }
