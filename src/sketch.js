@@ -13,7 +13,8 @@ let particle;
  * Prepare the sketch.
  */
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    let canvas = createCanvas(windowWidth, windowHeight);
+    canvas.style('display', 'block');
 
     createWalls(5);
     particle = new Particle(createVector(windowWidth / 2, windowHeight / 2));
