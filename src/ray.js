@@ -7,7 +7,7 @@ class Ray extends Drawable {
      * Create a new ray.
      *
      * @param origin {p5.Vector} The position from which this ray originates.
-     * @param angle {number}: The angle in radians into which the ray is cast.
+     * @param angle {number}: The angle in radians in which the ray is cast.
      */
     constructor(origin, angle) {
         super();
@@ -19,10 +19,10 @@ class Ray extends Drawable {
         this.origin = origin;
 
         /**
-         * The direction into which the ray is cast.
-         * @type {p5.Vector}
+         * The angle in radians in which the ray is cast.
+         * @type {number}
          */
-        this.direction = p5.Vector.fromAngle(angle);
+        this.angle = angle;
 
         /**
          * The point onto which this ray is cast.
@@ -68,15 +68,17 @@ class Ray extends Drawable {
      * @see: https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection
      */
     cast(boundary) {
-        const denominator = (boundary.start.x - boundary.end.x) * -this.direction.y -
-                            (boundary.start.y - boundary.end.y) * -this.direction.x;
+        let direction = p5.Vector.fromAngle(this.angle);
+        
+        const denominator = (boundary.start.x - boundary.end.x) * - direction.y -
+                            (boundary.start.y - boundary.end.y) * - direction.x;
         if (denominator === 0) {
             // If the denominator is 0, the ray and the boundary are parallel to each other (or are coincident).
             return null;
         }
 
-        const t = ((boundary.start.x - this.origin.x) * -this.direction.y -
-                  (boundary.start.y - this.origin.y) * -this.direction.x) /
+        const t = ((boundary.start.x - this.origin.x) * - direction.y -
+                  (boundary.start.y - this.origin.y) * - direction.x) /
                   denominator;
         const u = -((boundary.start.x - boundary.end.x) * (boundary.start.y - this.origin.y) -
                   (boundary.start.y - boundary.end.y) * (boundary.start.x - this.origin.x)) /
@@ -100,7 +102,6 @@ class Ray extends Drawable {
             return;
         }
 
-        stroke(255, 255, 255, 100);
-        line(this.origin.x, this.origin.y, this.castPoint.x, this.castPoint.y);
+        vertex(this.castPoint.x, this.castPoint.y);
     }
 }

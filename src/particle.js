@@ -49,6 +49,11 @@ class Particle extends Drawable {
             this.createRayTowardsTarget(boundary.start);
             this.createRayTowardsTarget(boundary.end);
         }
+
+        // Sort the rays by their angle so we can correctly draw the shape that is enlightened by the rays.
+        this.rays.sort((ray1, ray2) => {
+            return ray1.angle - ray2.angle;
+        });
     }
 
     /**
@@ -72,13 +77,12 @@ class Particle extends Drawable {
      * Draw this particle.
      */
     onDraw() {
+        // Draw the area enlightened by the rays.
+        beginShape();
+        fill(238, 234, 98);
         for (let ray of this.rays) {
             ray.draw();
         }
-
-        // Draw this particle as a circle.
-        noStroke();
-        fill(255, 255, 255);
-        circle(this.position.x, this.position.y, 10);
+        endShape(CLOSE);
     }
 }

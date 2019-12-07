@@ -14,7 +14,6 @@ let particle;
  */
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    noCursor();
 
     createWalls(5);
     particle = new Particle(createVector(windowWidth / 2, windowHeight / 2));
@@ -41,12 +40,12 @@ function onUpdate() {
  * Draw the current state of the sketch.
  */
 function onDraw() {
+    particle.draw();
+
     // Draw the walls.
     for (let wall of walls) {
         wall.draw();
     }
-
-    particle.draw();
 }
 
 /**
